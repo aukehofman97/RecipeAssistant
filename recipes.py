@@ -98,7 +98,7 @@ def main():
         #additional_ingredients = st.text_area("Additional Ingredients", placeholder="Enter any ingredients you have at home...")
 
         if st.button("Get Recipe"):
-            prompt_content = prompt_template + f"\nGender: {gender}\nAge: {age}\nWeight: {weight}kg\nHeight: {height}cm\nTMB: {TMB:.2f}\nActivity Multiplier: {activity_value}\nNecessary Calories: {necessary_calories:.2f}\nAdditional considerations are the following ingredients: {additional_ingredients}"
+            prompt_content = prompt_template + f"\nGender: {gender}\nAge: {age}\nWeight: {weight}kg\nHeight: {height}cm\nTMB: {TMB:.2f}\nActivity Multiplier: {activity_value}\nNecessary Calories: {necessary_calories:.2f}\n"
             st.session_state['messages'].append({"role": "user", "content": prompt_content})
 
             response = get_openai_response(st.session_state['messages'])
