@@ -104,7 +104,7 @@ def main():
             response = get_openai_response(st.session_state['messages'])
             
             st.session_state['messages'].append({"role": "assistant", "content": response})
-            st.experimental_rerun()
+            st.rerun()
 
     with col2:
         if 'messages' in st.session_state:
