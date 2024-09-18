@@ -33,7 +33,7 @@ client = OpenAI(api_key=st.secrets["OPEN_API_KEY"])
 def get_openai_response(messages):
     try:
         response = client.chat.completions.create(
-            model="gpt-4-0314",  # Use the gpt-4-0314 model for cost efficiency
+            model="gpt-4o-mini",  # Use the gpt-4-0314 model for cost efficiency
             messages=messages,
             max_tokens=400,
             temperature=0.9,
