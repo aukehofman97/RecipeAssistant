@@ -35,7 +35,7 @@ def get_openai_response(messages):
         response = client.chat.completions.create(
             model="gpt-4o-mini",  # Use the gpt-4-0314 model for cost efficiency
             messages=messages,
-            max_tokens=400,
+            max_tokens=1000,
             temperature=0.9,
         )
         return response.choices[0].message.content
