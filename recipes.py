@@ -27,7 +27,7 @@ def save_text(data, filename):
     with open(filename, 'w') as f:
         f.write(data)
 
-client = OpenAI(api_key="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")
+client = OpenAI(api_key=st.secrets["OPEN_API_KEY"])
 
 # Function to get response from OpenAI API with context
 def get_openai_response(messages):
