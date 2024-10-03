@@ -33,9 +33,9 @@ client = OpenAI(api_key="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")
 def get_openai_response(messages):
     try:
         response = client.chat.completions.create(
-            model="gpt-4-0314",  # Use the gpt-4-0314 model for cost efficiency
+            model="gpt-4o-mini",  # Use the gpt-4-0314 model for cost efficiency
             messages=messages,
-            max_tokens=400,
+            max_tokens=800,
             temperature=0.9,
         )
         return response.choices[0].message.content
@@ -46,12 +46,6 @@ def get_openai_response(messages):
 def main():
     st.set_page_config(layout='wide')
     st.title('Your Recipe Assistant')
-
-    # Read the prompt template
-    prompt_template = read_predefined_file('prompt2.txt')
-    if not prompt_template:
-        st.error("Error reading the prompt.txt file. Please ensure it exists and is readable.")
-        return
 
     if 'messages' not in st.session_state:
         st.session_state['messages'] = []
@@ -95,12 +89,9 @@ def main():
         necessary_calories = TMB * activity_value
         st.write(f"Necessary Calories according to Activeness: {necessary_calories:.2f} calories/day")
 
-        #additional_ingredients = st.text_area("Additional Ingredients", placeholder="Enter any ingredients you have at home...")
-
         if st.button("Get Recipe"):
-            prompt_content = prompt_template + f"\nGender: {gender}\nAge: {age}\nWeight: {weight}kg\nHeight: {height}cm\nTMB: {TMB:.2f}\nActivity Multiplier: {activity_value}\nNecessary Calories: {necessary_calories:.2f}\nAdditional considerations are the following ingredients: {additional_ingredients}"
-            st.session_state['messages'].append({"role": "user", "content": prompt_content})
-
+            prompt_content = necessary_calories
+            st.session_state['messages'].append({"role": "user", "content": f'You are a recipe maker and fitness coach that helps people get achieve their goals. The number of calories one needs to achieve is {prompt_content}. Create recipes for breakfast, lunch and dinner, considering the calorie amount {prompt_content}'})
             response = get_openai_response(st.session_state['messages'])
             
             st.session_state['messages'].append({"role": "assistant", "content": response})
