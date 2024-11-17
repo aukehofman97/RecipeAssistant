@@ -2,6 +2,7 @@ import streamlit as st
 from openai import OpenAI
 import pandas as pd
 import os
+from datetime import datetime
 
 # OpenAI client initialization
 client = OpenAI(api_key=st.secrets["OPEN_API_KEY"])
@@ -18,6 +19,17 @@ def get_openai_response(messages):
         return response.choices[0].message.content
     except Exception as e:
         return str(e)
+    
+def get_current_season():
+    month = datetime.now().month
+    if month in [12, 1, 2]:
+        return "winter"
+    elif month in [3, 4, 5]:
+        return "spring"
+    elif month in [6, 7, 8]:
+        return "summer"
+    elif month in [9, 10, 11]:
+        return "autumn"
 
 # Streamlit app
 def main():
@@ -142,7 +154,7 @@ def main():
 
         # Input: Budget
         budget = st.radio(
-            "What's the date?",
+            "What's your economic status??",
             options=["End of the month 💰", "Middle of the month 💰💰", "Beginning of the month 💰💰💰"]
         )
         
@@ -150,6 +162,9 @@ def main():
             "Add items that you regularly buy independently of the menu:",
             placeholder = "E.g., milk, eggs, bread, bananas",
         )
+        
+        # Get the current season
+        current_season = get_current_season()
 
         # Aggregate the prompt
         if st.button("Generate Menu"):
@@ -167,6 +182,7 @@ def main():
                 f"Include these items in the shopping list, but not for the menu {always_buy_items}. Add them as Always Buy under Shopping List. \n"
                 f"Multiday dishes: {multiday_dishes}. This means: same dish for lunch/dinner on 2 following days. Restriction: mixing lunch and dinner not allowed."
                 f"The menu should include diverse and balanced meals, keeping the budget in mind. Also balance fish, meat, and vegetarian options. \n"
+                f"The current season is {current_season}. Include seasonal dishes for {current_season}.\n"
                 f"Consider simple, yet elegant dishes that are servable in a restaurant. I want to become a masterchef."
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
