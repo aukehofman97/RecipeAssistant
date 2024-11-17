@@ -158,6 +158,12 @@ def main():
         if 'menu_response' in st.session_state:
             st.markdown("### Generated Menu:")
             st.markdown(st.session_state['menu_response'])
+            st.download_button(
+                label="Download Menu and Shopping List as CSV",
+                data=st.session_state['menu_response'],  # Use the raw output of your prompt
+                file_name="weekly_menu.csv",
+                mime="text/csv"
+            )
             feedback = st.text_area("Provide feedback to refine the menu:")
             if st.button("Send Feedback"):
                 feedback_prompt = (
@@ -167,6 +173,5 @@ def main():
                 )
                 st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": feedback_prompt}])
                 st.markdown("Updated Menu:", st.session_state['menu_response'])
-
 if __name__ == "__main__":
     main()
