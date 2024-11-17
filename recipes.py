@@ -123,6 +123,11 @@ def main():
             "What's the date?",
             options=["End of the month", "Middle of the month", "Beginning of the month"]
         )
+        
+        always_buy_items = st.text_area(
+            "Add items that you regularly buy independently of the menu:",
+            placeholder = "E.g., milk, eggs, bread, bananas"
+        )
 
         # Aggregate the prompt
         if st.button("Generate Menu"):
@@ -136,6 +141,7 @@ def main():
                 f"Days: {', '.join(days)}\n"
                 f"Meals: {', '.join(meal_type)}\n"
                 f"Number of people: {num_people}\n"
+                f"Include these items in the shopping list, but not for the menu {always_buy_items}.\n"
                 f"The menu should include diverse and balanced meals, keeping the budget in mind.\n"
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
@@ -160,7 +166,7 @@ def main():
                     "Refine the menu accordingly and ensure it's even better."
                 )
                 st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": feedback_prompt}])
-                st.text_area("Updated Menu:", st.session_state['menu_response'], height=300, disabled=True)
+                st.markdown("Updated Menu:", st.session_state['menu_response'])
 
 if __name__ == "__main__":
     main()
