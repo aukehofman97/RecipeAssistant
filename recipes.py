@@ -176,7 +176,7 @@ def main():
             aggregated_prompt = (
                 f"You are a meal planner. Create a {budget_mapping[budget]} weekly menu for the following details:\n"
                 f"Do not include the following dishes (from last week): {', '.join(last_week_dishes)}\n"
-                f"Days: {', '.join(days)}\n"
+                f"Days of the week for the menu: {', '.join(days)}, only include these days!\n"
                 f"Meals: {', '.join(meal_type)}\n"
                 f"Number of people: {num_people}\n"
                 f"Include these items in the shopping list, but not for the menu {always_buy_items}. Add them as Always Buy under Shopping List. \n"
