@@ -229,6 +229,7 @@ def main():
 
             # Save structured menu as CSV
             if menu_data:
+                print("leuk menu")
                 menu_df = pd.DataFrame(menu_data)
                 st.download_button(
                     label="Download Menu as CSV",
@@ -236,6 +237,8 @@ def main():
                     file_name="weekly_menu.csv",
                     mime="text/csv"
                 )
+            else:
+                print("je hebt geen menu")
 
             # Save structured shopping list as CSV
             if shopping_list_data:
