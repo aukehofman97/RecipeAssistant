@@ -126,7 +126,7 @@ def main():
         
         always_buy_items = st.text_area(
             "Add items that you regularly buy independently of the menu:",
-            placeholder = "E.g., milk, eggs, bread, bananas"
+            placeholder = "E.g., milk, eggs, bread, bananas",
         )
 
         # Aggregate the prompt
