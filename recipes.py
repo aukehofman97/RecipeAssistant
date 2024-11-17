@@ -139,7 +139,8 @@ def main():
                 f"The menu should include diverse and balanced meals, keeping the budget in mind.\n"
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
-                
+                f"The output should be in a table, sorted on date.\n"
+                f"Give back the shopping list that considers the {num_people}"
             )
             
             # Store the initial prompt and OpenAI response in session state
