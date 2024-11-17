@@ -120,8 +120,8 @@ def main():
 
         # Input: Budget
         budget = st.radio(
-            "What's the budget? (Choose funnily!)",
-            options=["Low budget (end of the month)", "Regular (middle of the month)", "High budget (beginning of the month)"]
+            "What's the date?",
+            options=["End of the month)", "Middle of the month", "Beginning of the month"]
         )
 
         # Aggregate the prompt
