@@ -119,7 +119,7 @@ def main():
         )
         
         multiday_dishes = st.radio(
-            "Are multiday dishes allowed (same dish multiple days)"
+            "Are multiday dishes allowed (same dish multiple days)?",
             options = ["Yes", "No"],
             index = 0
         )
