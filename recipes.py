@@ -115,7 +115,7 @@ def main():
             min_value=1,
             max_value=20,
             step=1,
-            value=4
+            value=2
         )
 
         # Input: Budget
