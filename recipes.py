@@ -121,15 +121,15 @@ def main():
         # Input: Budget
         budget = st.radio(
             "What's the date?",
-            options=["End of the month)", "Middle of the month", "Beginning of the month"]
+            options=["End of the month", "Middle of the month", "Beginning of the month"]
         )
 
         # Aggregate the prompt
         if st.button("Generate Menu"):
             budget_mapping = {
-                "Low budget (end of the month)": "low-budget",
-                "Regular (middle of the month)": "regular-budget",
-                "High budget (beginning of the month)": "high-budget"
+                "End of the month": "low-budget",
+                "Middle of the month": "regular-budget",
+                "Beginning of the month": "high-budget"
             }
             aggregated_prompt = (
                 f"You are a meal planner. Create a {budget_mapping[budget]} weekly menu for the following details:\n"
