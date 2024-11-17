@@ -154,6 +154,7 @@ def main():
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
                 f"The output should be in a table, sorted on date.\n"
                 f"Also give a short explanation of the dish under the table.\n"
+                f"If vegetables are included in the dish, be clear in your specification on which ones.\n"
                 f"Give back the shopping list that considers the {num_people}"
             )
             
