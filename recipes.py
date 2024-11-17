@@ -147,11 +147,11 @@ def main():
             if 'menu_prompt' not in st.session_state:
                 st.session_state['menu_prompt'] = aggregated_prompt
                 st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": aggregated_prompt}])
-
-            st.markdown("Generated Menu:", st.session_state['menu_response'])
-
+            
         # Feedback and refinement
         if 'menu_response' in st.session_state:
+            st.markdown("### Generated Menu:")
+            st.markdown(st.session_state['menu_response'])
             feedback = st.text_area("Provide feedback to refine the menu:")
             if st.button("Send Feedback"):
                 feedback_prompt = (
