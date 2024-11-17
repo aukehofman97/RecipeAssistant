@@ -148,7 +148,7 @@ def main():
                 f"Meals: {', '.join(meal_type)}\n"
                 f"Number of people: {num_people}\n"
                 f"Include these items in the shopping list, but not for the menu {always_buy_items}. Add them as Always Buy under Shopping List. \n"
-                f"Multiday dishes: {multiday_dishes}. This means: same dish for lunch or dinner on 2 following days. Restriction: using a lunch as a dinner is not allowed and vice versa, only lunch 2 days in a row or dinner two days in a row."
+                f"Multiday dishes: {multiday_dishes}. This means: same dish for lunch/dinner on 2 following days. Restriction: mixing lunch and dinner not allowed."
                 f"The menu should include diverse and balanced meals, keeping the budget in mind.\n"
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
