@@ -153,6 +153,7 @@ def main():
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
                 f"The output should be in a table, sorted on date.\n"
+                f"Also give a short explanation of the dish under the table.\n"
                 f"Give back the shopping list that considers the {num_people}"
             )
             
