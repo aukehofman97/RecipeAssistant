@@ -136,7 +136,10 @@ def main():
                 f"Days: {', '.join(days)}\n"
                 f"Meals: {', '.join(meal_type)}\n"
                 f"Number of people: {num_people}\n"
-                "The menu should include diverse and balanced meals, keeping the budget in mind."
+                f"The menu should include diverse and balanced meals, keeping the budget in mind.\n"
+                f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
+                f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
+                
             )
             
             # Store the initial prompt and OpenAI response in session state
