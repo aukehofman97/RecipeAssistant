@@ -166,7 +166,7 @@ def main():
                 f"Number of people: {num_people}\n"
                 f"Include these items in the shopping list, but not for the menu {always_buy_items}. Add them as Always Buy under Shopping List. \n"
                 f"Multiday dishes: {multiday_dishes}. This means: same dish for lunch/dinner on 2 following days. Restriction: mixing lunch and dinner not allowed."
-                f"The menu should include diverse and balanced meals, keeping the budget in mind. Also balance fish, meat, and vegetarian options to avoid eating the same all the time. \n"
+                f"The menu should include diverse and balanced meals, keeping the budget in mind. Also balance fish, meat, and vegetarian options. \n"
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
                 f"The output should be in a table, sorted on date.\n"
