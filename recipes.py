@@ -224,16 +224,6 @@ def main():
             st.markdown("### Generated Menu:")
             st.markdown(st.session_state['menu_response'])
             
-            feedback = st.text_area("Provide feedback to refine the menu:")
-            if st.button("Send Feedback"):
-                feedback_prompt = (
-                    f"Here is the current menu:\n{st.session_state['menu_response']}\n"
-                    f"User feedback: {feedback}\n"
-                    "Refine the menu accordingly and ensure it's even better."
-                )
-                st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": feedback_prompt}])
-                st.markdown("Updated Menu:", st.session_state['menu_response'])
-            
             # Parse the response into structured menu and shopping list
             menu_data, shopping_list_data = parse_menu_and_shopping_list(st.session_state['menu_response'])
 
