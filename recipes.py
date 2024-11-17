@@ -95,6 +95,22 @@ def main():
     with tab2:
         st.subheader("Weekly Menu Generator")
 
+        last_week_menu_file = st.file_uploader(
+        "Upload last week's menu (CSV file):",
+        type="csv",
+        help="This will help avoid repeating dishes from last week's menu."
+        )
+        
+        last_week_dishes = []
+        if last_week_menu_file is not None:
+            try:
+                # Read the uploaded CSV
+                last_week_df = pd.read_csv(last_week_menu_file)
+                last_week_dishes = last_week_df['Dish'].tolist()
+                st.write("Dishes from last week:", last_week_dishes)
+            except Exception as e:
+                st.error(f"Error reading the file: {e}")
+        
         # Input: Days of the week
         days = st.multiselect(
             "Which days does this menu cover?",
@@ -144,12 +160,13 @@ def main():
             }
             aggregated_prompt = (
                 f"You are a meal planner. Create a {budget_mapping[budget]} weekly menu for the following details:\n"
+                f"Do not include the following dishes (from last week): {', '.join(last_week_dishes)}\n"
                 f"Days: {', '.join(days)}\n"
                 f"Meals: {', '.join(meal_type)}\n"
                 f"Number of people: {num_people}\n"
                 f"Include these items in the shopping list, but not for the menu {always_buy_items}. Add them as Always Buy under Shopping List. \n"
                 f"Multiday dishes: {multiday_dishes}. This means: same dish for lunch/dinner on 2 following days. Restriction: mixing lunch and dinner not allowed."
-                f"The menu should include diverse and balanced meals, keeping the budget in mind.\n"
+                f"The menu should include diverse and balanced meals, keeping the budget in mind. Also balance fish, meat, and vegetarian options to avoid eating the same all the time. \n"
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
                 f"The output should be in a table, sorted on date.\n"
