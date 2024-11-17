@@ -223,7 +223,12 @@ def main():
         if 'menu_response' in st.session_state:
             st.markdown("### Generated Menu:")
             st.markdown(st.session_state['menu_response'])
-            
+            st.download_button(
+                label="Download Menu and Shopping List as CSV",
+                data=st.session_state['menu_response'],
+                file_name="weekly_menu.csv",
+                mime="text/csv"
+            )
             # Parse the response into structured menu and shopping list
             menu_data, shopping_list_data = parse_menu_and_shopping_list(st.session_state['menu_response'])
 
