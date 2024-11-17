@@ -1,34 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 import pandas as pd
-import json
 import os
-
-# Function to read and process uploaded files
-def read_file(file):
-    if file is not None:
-        extension = os.path.splitext(file.name)[1].lower()
-        if extension == ".json":
-            data = json.load(file)
-            return json.dumps(data, indent=2)
-        elif extension == ".csv":
-            data = pd.read_csv(file)
-            return data.to_csv(index=False)
-        else:
-            return file.read()  
-    return None
-
-# Function to read predefined files
-def read_predefined_file(file_path):
-    if file_path is not None and os.path.exists(file_path):
-        with open(file_path, 'r') as file:
-            return file.read()
-    return None
-
-# Function to save data to a text file
-def save_text(data, filename):
-    with open(filename, 'w') as f:
-        f.write(data)
 
 # OpenAI client initialization
 client = OpenAI(api_key=st.secrets["OPEN_API_KEY"])
@@ -49,10 +22,10 @@ def get_openai_response(messages):
 # Streamlit app
 def main():
     st.set_page_config(layout='wide')
-    st.title('Your Recipe Assistant and Data Analyzer')
+    st.title('Your Recipe Assistant and Weekly Menu Generator')
 
     # Tabs for different functionalities
-    tab1, tab2 = st.tabs(["Calorie Calculator & Recipe Generator", "Data Analysis"])
+    tab1, tab2 = st.tabs(["Calorie Calculator & Recipe Generator", "Weekly Menu Generator"])
 
     # Tab 1: Calorie Calculator & Recipe Generator
     with tab1:
@@ -118,25 +91,72 @@ def main():
                 if assistant_message:
                     st.text_area("Generated Recipe:", assistant_message["content"], key="assistant_message", height=500, disabled=True)
 
-    # Tab 2: Data Analysis
+    # Tab 2: Weekly Menu Generator
     with tab2:
-        st.subheader("Upload and Analyze Data")
-        uploaded_file = st.file_uploader("Upload a CSV or JSON file", type=["csv", "json"])
+        st.subheader("Weekly Menu Generator")
 
-        if uploaded_file is not None:
-            file_content = read_file(uploaded_file)
-            if uploaded_file.name.endswith(".csv"):
-                st.write("Data Preview:")
-                df = pd.read_csv(uploaded_file)
-                st.dataframe(df)
+        # Input: Days of the week
+        days = st.multiselect(
+            "Which days does this menu cover?",
+            options=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            default=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        )
 
-                st.write("Summary Statistics:")
-                st.write(df.describe())
-            elif uploaded_file.name.endswith(".json"):
-                st.write("JSON Content:")
-                st.text_area("File Content", file_content, height=500)
-        else:
-            st.write("Upload a file to get started.")
+        # Input: Meal type
+        meal_type = st.multiselect(
+            "Does this menu cover lunch, dinner, or both?",
+            options=["Lunch", "Dinner"],
+            default=["Lunch", "Dinner"]
+        )
+
+        # Input: Number of people
+        num_people = st.number_input(
+            "For how many people is this menu?",
+            min_value=1,
+            max_value=20,
+            step=1,
+            value=4
+        )
+
+        # Input: Budget
+        budget = st.radio(
+            "What's the budget? (Choose funnily!)",
+            options=["Low budget (end of the month)", "Regular (middle of the month)", "High budget (beginning of the month)"]
+        )
+
+        # Aggregate the prompt
+        if st.button("Generate Menu"):
+            budget_mapping = {
+                "Low budget (end of the month)": "low-budget",
+                "Regular (middle of the month)": "regular-budget",
+                "High budget (beginning of the month)": "high-budget"
+            }
+            aggregated_prompt = (
+                f"You are a meal planner. Create a {budget_mapping[budget]} weekly menu for the following details:\n"
+                f"Days: {', '.join(days)}\n"
+                f"Meals: {', '.join(meal_type)}\n"
+                f"Number of people: {num_people}\n"
+                "The menu should include diverse and balanced meals, keeping the budget in mind."
+            )
+            
+            # Store the initial prompt and OpenAI response in session state
+            if 'menu_prompt' not in st.session_state:
+                st.session_state['menu_prompt'] = aggregated_prompt
+                st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": aggregated_prompt}])
+
+            st.text_area("Generated Menu:", st.session_state['menu_response'], height=300, disabled=True)
+
+        # Feedback and refinement
+        if 'menu_response' in st.session_state:
+            feedback = st.text_area("Provide feedback to refine the menu:")
+            if st.button("Send Feedback"):
+                feedback_prompt = (
+                    f"Here is the current menu:\n{st.session_state['menu_response']}\n"
+                    f"User feedback: {feedback}\n"
+                    "Refine the menu accordingly and ensure it's even better."
+                )
+                st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": feedback_prompt}])
+                st.text_area("Updated Menu:", st.session_state['menu_response'], height=300, disabled=True)
 
 if __name__ == "__main__":
     main()
