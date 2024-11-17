@@ -148,7 +148,7 @@ def main():
                 st.session_state['menu_prompt'] = aggregated_prompt
                 st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": aggregated_prompt}])
 
-            st.text_area("Generated Menu:", st.session_state['menu_response'], height=300, disabled=True)
+            st.markdown("Generated Menu:", st.session_state['menu_response'], height=300, disabled=True)
 
         # Feedback and refinement
         if 'menu_response' in st.session_state:
