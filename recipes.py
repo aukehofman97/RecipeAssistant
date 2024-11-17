@@ -3,6 +3,7 @@ from openai import OpenAI
 import pandas as pd
 import os
 from datetime import datetime
+import re
 
 # OpenAI client initialization
 client = OpenAI(api_key=st.secrets["OPEN_API_KEY"])
