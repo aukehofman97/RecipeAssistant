@@ -31,6 +31,27 @@ def get_current_season():
     elif month in [9, 10, 11]:
         return "autumn"
 
+def parse_menu_and_shopping_list(markdown_response):
+    # Example regex to parse menu lines like "Monday Lunch: Grilled Chicken Salad"
+    menu_pattern = r"(?P<Day>\w+)\s+(?P<MealType>\w+):\s+(?P<Dish>.+)"
+    shopping_list_pattern = r"Shopping List:(?P<Items>.+)"  # Match "Shopping List: item1, item2, ..."
+
+    menu_data = []
+    shopping_list_data = []
+
+    for line in markdown_response.split("\n"):
+        menu_match = re.match(menu_pattern, line.strip())
+        shopping_match = re.search(shopping_list_pattern, line.strip())
+
+        if menu_match:
+            menu_data.append(menu_match.groupdict())
+
+        if shopping_match:
+            # Split shopping items into a list and store them
+            items = shopping_match.group("Items").split(",")
+            shopping_list_data.extend([{"Item": item.strip()} for item in items])
+
+    return menu_data, shopping_list_data
 # Streamlit app
 def main():
     st.set_page_config(layout='wide')
@@ -201,12 +222,7 @@ def main():
         if 'menu_response' in st.session_state:
             st.markdown("### Generated Menu:")
             st.markdown(st.session_state['menu_response'])
-            st.download_button(
-                label="Download Menu and Shopping List as CSV",
-                data=st.session_state['menu_response'],  # Use the raw output of your prompt
-                file_name="weekly_menu.csv",
-                mime="text/csv"
-            )
+            
             feedback = st.text_area("Provide feedback to refine the menu:")
             if st.button("Send Feedback"):
                 feedback_prompt = (
@@ -216,5 +232,31 @@ def main():
                 )
                 st.session_state['menu_response'] = get_openai_response([{"role": "user", "content": feedback_prompt}])
                 st.markdown("Updated Menu:", st.session_state['menu_response'])
+            
+            # Parse the response into structured menu and shopping list
+            menu_data, shopping_list_data = parse_menu_and_shopping_list(st.session_state['menu_response'])
+
+            # Save structured menu as CSV
+            if menu_data:
+                menu_df = pd.DataFrame(menu_data)
+                st.download_button(
+                    label="Download Menu as CSV",
+                    data=menu_df.to_csv(index=False),
+                    file_name="weekly_menu.csv",
+                    mime="text/csv"
+                )
+
+            # Save structured shopping list as CSV
+            if shopping_list_data:
+                shopping_list_df = pd.DataFrame(shopping_list_data)
+                st.download_button(
+                    label="Download Shopping List as CSV",
+                    data=shopping_list_df.to_csv(index=False),
+                    file_name="shopping_list.csv",
+                    mime="text/csv"
+                )
+             
+             
+
 if __name__ == "__main__":
     main()
