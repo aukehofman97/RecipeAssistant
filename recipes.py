@@ -141,7 +141,7 @@ def main():
                 f"Days: {', '.join(days)}\n"
                 f"Meals: {', '.join(meal_type)}\n"
                 f"Number of people: {num_people}\n"
-                f"Include these items in the shopping list, but not for the menu {always_buy_items}.\n"
+                f"Include these items in the shopping list, but not for the menu {always_buy_items}. Add them as Always Buy in the list. \n"
                 f"The menu should include diverse and balanced meals, keeping the budget in mind.\n"
                 f"Lunch must always contain carbohydrates like pasta/rice/couscous/similar food.\n"
                 f"Dinner is all about vegetables and meat, so little carbohydrates.\n"
