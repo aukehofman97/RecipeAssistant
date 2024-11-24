@@ -303,9 +303,9 @@ def main():
         st.subheader("Generate Calorie-Based Weekly Menu")
         
         last_week_menu_file = st.file_uploader(
-            "Upload last week's menu (CSV file):",
+            "Upload last menu (CSV file):",
             type="csv",
-            help="This will help avoid repeating dishes from last week's menu."
+            help="To help us avoid repeating dishes from last week's menu."
         )
         last_week_dishes = []
         if last_week_menu_file is not None:
