@@ -59,7 +59,7 @@ def main():
     st.title('Your Recipe Assistant and Weekly Menu Generator')
 
     # Tabs for different functionalities
-    tab1, tab2 = st.tabs(["Calorie Calculator & Recipe Generator", "Weekly Menu Generator"])
+    tab1, tab2, tab3 = st.tabs(["Calorie Calculator & Recipe Generator", "Weekly Menu Generator", "Combined Calorie-Based Weekly Menu Generator"])
 
     # Tab 1: Calorie Calculator & Recipe Generator
     with tab1:
