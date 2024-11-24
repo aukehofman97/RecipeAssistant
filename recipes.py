@@ -347,7 +347,7 @@ def main():
                 f"You are a meal planner. Create a {budget_mapping[budget]} weekly menu for the following details:\n"
                 f"Do not include the following dishes (from last week): {', '.join(last_week_dishes)}\n"
                 f"Days of the week: Monday to Friday, covering Breakfast, Lunch, and Dinner.\n"
-                f"The three meals together must make up for a total of {necessary_calories / 3:.2f} calories. Not necessary each meal must be the same amount of calories, if the total adds up.\n"
+                f"The three meals together must make up for a total of {necessary_calories} calories. Not necessary each meal must be the same amount of calories, if the total adds up.\n"
                 f"Multiday dishes: {multiday_dishes}. This means: same dish for multiple meals.\n"
                 f"Always include these items in the shopping list but not in the menu: {always_buy_items}.\n"
                 f"Also, include detailed macronutrient breakdowns (calories, protein, carbs, fat) for each dish.\n"
