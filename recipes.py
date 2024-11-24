@@ -69,7 +69,7 @@ def main():
         col1, col2, col3 = st.columns([1, 1, 1])
 
         with col1:
-            gender = st.selectbox("Select your gender", ["Male", "Female"])
+            gender = st.selectbox("Select your gender.", ["Male", "Female"])
 
             age = st.number_input("Age", min_value=1, max_value=100, step=1)
             weight = st.number_input("Weight (kg)", min_value=1, max_value=200, step=1)
@@ -84,7 +84,7 @@ def main():
             st.write(f"Your Basal Metabolic Rate (TMB) is: {TMB:.2f} calories/day")
 
             activity = st.selectbox(
-                "Select your level of activity",
+                "Select your level of activity.",
                 ["Little activity, I prefer to rest in my free time or do a hobby at home",
                 "I sit most of the time during work, but I do go to the gym 3-4 times a week",
                 "My workday is relatively active and I train almost everyday or at least 5 times 1 hour or more",
