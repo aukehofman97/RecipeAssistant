@@ -263,9 +263,9 @@ def main():
 
         with col1:
             gender = st.selectbox("Select your gender", ["Male", "Female"])
-            age = st.number_input("Age", min_value=1, max_value=100, step=1)
-            weight = st.number_input("Weight (kg)", min_value=1, max_value=200, step=1)
-            height = st.number_input("Height (cm)", min_value=100, max_value=220, step=1)
+            age = st.number_input("Age", min_value=16, max_value=80, step=1)
+            weight = st.number_input("Weight (kg)", min_value=40, max_value=175, step=1)
+            height = st.number_input("Height (cm)", min_value=120, max_value=230, step=1)
 
             # Calculate TMB based on the gender, weight, height, and age
             if gender == "Male":
