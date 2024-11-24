@@ -327,7 +327,7 @@ def main():
         # Economic status
         budget = st.radio(
             "What's your economic status?",
-            options=["End of the month 💰", "Middle of the month 💰💰", "Beginning of the month 💰💰💰"]
+            options=["Working Class 💰", "Middle Class 💰💰", "Upper Class 💰💰💰"]
         )
 
         # Regularly bought items
