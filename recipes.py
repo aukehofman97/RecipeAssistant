@@ -339,9 +339,9 @@ def main():
         # Generate menu button
         if st.button("Generate Calorie-Based Weekly Menu"):
             budget_mapping = {
-                "End of the month 💰": "low-budget",
-                "Middle of the month 💰💰": "regular-budget",
-                "Beginning of the month 💰💰💰": "high-budget"
+                "Working Class 💰": "low-budget",
+                "Middle Class 💰💰": "regular-budget",
+                "Upper Class 💰💰💰": "high-budget"
             }
             aggregated_prompt = (
                 f"You are a meal planner. Create a {budget_mapping[budget]} weekly menu for the following details:\n"
