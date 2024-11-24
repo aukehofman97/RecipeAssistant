@@ -352,6 +352,8 @@ def main():
                 f"Always include these items in the shopping list but not in the menu: {always_buy_items}.\n"
                 f"Also, include detailed macronutrient breakdowns (calories, protein, carbs, fat) for each dish.\n"
                 f"Keep meals diverse, seasonal, and easy to prepare.\n"
+                f"Give a small explanation on how to cook the dishes.\n"
+                f"Consider that this person lives in Spain, and therefore shops at Spanish supermarkets like Mercadona. This is important for the meal suggestions, but also the macronutrients of the products.\n"
             )
 
             # Call the LLM to generate the menu
