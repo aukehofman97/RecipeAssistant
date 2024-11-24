@@ -332,7 +332,7 @@ def main():
 
         # Regularly bought items
         always_buy_items = st.text_area(
-            "Add items that you regularly buy independently of the menu:",
+            "Add items that you regularly buy:",
             placeholder="E.g., milk, eggs, bread, bananas",
         )
 
